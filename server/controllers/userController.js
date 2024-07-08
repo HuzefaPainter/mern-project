@@ -1,0 +1,60 @@
+const userModel = require("../models/userModel");
+/**
+ name: 'siri',
+ email: 'siri@apple.com',
+ password: 'steve',
+ role: "admin"
+ */
+const register = async (req, res) => {
+  try {
+    const userExists = await userModel.findOne({ email: req.body.email });
+    if (userExists) {
+      return res.send({
+        success: false,
+        message: "User already exists, please sign in instead."
+      });
+    }
+
+    const newUser = new userModel(req.body);
+    await newUser.save();
+
+    res.send({
+      success: true,
+      message: "User registered successfully"
+    });
+  } catch (e) {
+    console.log("Error: ", e);
+  }
+};
+
+const login = async (req, res) => {
+  try {
+    const user = await userModel.findOne({ email: req.body.email });
+    if (!user) {
+      return res.send({
+        success: false,
+        message: "User doesn't exist, please register instead."
+      });
+    }
+
+    if (user.password != req.body.password) {
+      return res.send({
+        success: false,
+        message: "Invalid Password, please try again."
+      });
+    }
+
+    res.send({
+      success: true,
+      message: "User logged in successfully"
+    });
+  } catch (e) {
+    console.log("Error: ", e);
+    return res.status(500).send({
+      success: false,
+      message: "Internal Server Error"
+    });
+  }
+};
+
+module.exports = { register, login };
