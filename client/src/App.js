@@ -4,7 +4,7 @@ import Login from './pages/login/Login.jsx'
 import Register from './pages/register/Register.jsx'
 import React from 'react';
 import Home from './pages/home/Home';
-import ProtectedRoute from 'components/protectedRoute';
+import ProtectedRoute from 'components/ProtectedRoute';
 import store from './redux/store';
 import { Provider } from 'react-redux';
 

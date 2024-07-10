@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react'
+import React, { useCallback, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { HomeOutlined, UserOutlined, LogoutOutlined, ProfileOutlined } from '@ant-design/icons';
@@ -56,7 +56,7 @@ const ProtectedRoute = ({ children }) => {
     },
   ]
 
-  const getValidUser = async () => {
+  const getValidUser = useCallback(async () => {
     try {
       dispatch(ShowLoading());
       const response = await GetCurrentUser();
@@ -64,15 +64,16 @@ const ProtectedRoute = ({ children }) => {
         dispatch(setUser(null));
         message.error(response.message);
         navigate('/login');
+      } else {
+        dispatch(setUser(response.data));
       }
-      console.log("Response: ", response);
-      dispatch(setUser(response.data));
       dispatch(HideLoading());
     } catch (error) {
       dispatch(setUser(null));
       message.error(error.message);
+      navigate('/login');
     }
-  }
+  }, [dispatch, navigate]);
 
   useEffect(() => {
     if (localStorage.getItem("jwtToken")) {
@@ -80,7 +81,7 @@ const ProtectedRoute = ({ children }) => {
     } else {
       navigate("/login");
     }
-  }, []);
+  }, [navigate, getValidUser]);
 
   return (
     user && (

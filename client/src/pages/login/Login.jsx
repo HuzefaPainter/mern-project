@@ -4,13 +4,18 @@ import { Link, useNavigate } from 'react-router-dom';
 import { LoginUser } from '../../api/users';
 
 function Login() {
-
   const navigate = useNavigate();
 
+  useEffect(() => {
+    if (localStorage.getItem("jwtToken")) {
+      navigate("/");
+    }
+  }, [navigate]);
+
   const onFinish = async (values) => {
-    console.log("values are: ", values);
     try {
       const response = await LoginUser(values);
+      console.log("Submitted: ", response);
       if (response.success) {
         message.success(response.message);
         localStorage.setItem("jwtToken", response.data);
@@ -22,12 +27,6 @@ function Login() {
       console.log("Error: ", e);
     }
   };
-
-  useEffect(() => {
-    if (localStorage.getItem("jwtToken")) {
-      navigate("/");
-    }
-  }, []);
 
   return (
     <>

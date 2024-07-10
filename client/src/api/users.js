@@ -20,6 +20,7 @@ export const LoginUser = async (value) => {
 
 export const GetCurrentUser = async (value) => {
   try {
+    console.log("Bearer token in get user:", localStorage.getItem("jwtToken"));
     const response = await axiosInstance.get("api/users/get-current-user");
     return response.data;
   } catch (e) {
