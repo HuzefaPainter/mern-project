@@ -1,4 +1,5 @@
 const userModel = require("../models/userModel");
+const jwt = require("jsonwebtoken");
 /**
  name: 'siri',
  email: 'siri@apple.com',
@@ -44,9 +45,13 @@ const login = async (req, res) => {
       });
     }
 
+    const jwtToken = jwt.sign({ userid: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "1d"
+    });
     res.send({
       success: true,
-      message: "User logged in successfully"
+      message: "User logged in successfully",
+      data: jwtToken
     });
   } catch (e) {
     console.log("Error: ", e);
@@ -57,4 +62,22 @@ const login = async (req, res) => {
   }
 };
 
-module.exports = { register, login };
+const getCurrentUser = async (req, res) => {
+  try {
+    let userId = req.body.userId;
+    const user = await userModel.findById(userId).select("-password");
+    res.send({
+      success: true,
+      data: user,
+      message: "You are authorized to go to protected route",
+    });
+  } catch (e) {
+    console.log("Error: ", e);
+    return res.status(500).send({
+      success: false,
+      message: "Internal Server Error"
+    });
+  }
+}
+
+module.exports = { register, login, getCurrentUser };
