@@ -4,7 +4,7 @@ const {
   login,
   getCurrentUser,
 } = require("../controllers/userControllers");
-const auth = require('../middlewares/authMiddlewares');
+const { auth } = require('../middlewares/authMiddlewares');
 
 const userRouter = express.Router();
 

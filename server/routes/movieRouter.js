@@ -5,11 +5,11 @@ const {
   updateMovie,
   deleteMovie,
 } = require("../controllers/movieControllers");
-const auth = require('../middlewares/authMiddlewares');
+const { auth, adminAuth } = require('../middlewares/authMiddlewares');
 
-movieRouter.post('/add-movie', addMovie);
-movieRouter.get('/get-all-movies', getAllMovies);
-movieRouter.put('/update-movie', updateMovie);
-movieRouter.delete('/delete-movie/:id', deleteMovie);
+movieRouter.post('/add-movie', adminAuth, addMovie);
+movieRouter.get('/get-all-movies', auth, getAllMovies);
+movieRouter.put('/update-movie', adminAuth, updateMovie);
+movieRouter.delete('/delete-movie/:id', adminAuth, deleteMovie);
 
 module.exports = movieRouter;

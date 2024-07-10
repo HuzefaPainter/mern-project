@@ -10,7 +10,7 @@ app.use(express.json());
 connectDb();
 
 app.use('/api/users', userRouter);
-app.use('/admin/api/movies', movieRouter);
+app.use('/api/movies', movieRouter);
 
 app.use((req, res) => {
   res.status(404).json({ message: "Page not found" });
