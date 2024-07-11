@@ -4,7 +4,7 @@ import TheatreForm from './TheatreForm';
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { getAllTheatres, getAllTheatresByOwner } from '../../api/theatre';
+import { getAllTheatres, getAllTheatresByOwner, updateTheatre } from '../../api/theatre';
 import DeleteTheatreModal from './DeleteTheatreModal';
 
 function TheatreList({ isAdmin }) {
@@ -46,6 +46,49 @@ function TheatreList({ isAdmin }) {
   //     return text;
   //   }
   // // };
+  const handleStatusUpdate = async (theatre) => {
+    try {
+      dispatch(ShowLoading());
+      theatre.isActive = !theatre.isActive;
+      const response = await updateTheatre(theatre);
+      if (response.success) {
+        message.success(response.message);
+        await getData();
+      } else {
+        message.error(response.message);
+      }
+      dispatch(HideLoading());
+    } catch (e) {
+      dispatch(HideLoading());
+      console.log("Error while updating status: ", e.message);
+    }
+  };
+
+  const adminActions = (data) => {
+    if (data.isActive) {
+      return (
+        <div>
+          <Button
+            onClick={() => {
+              handleStatusUpdate(data);
+            }}
+          >Block
+          </Button>
+        </div>)
+    } else {
+      return (
+        <div>
+          <Button
+            onClick={() => {
+              handleStatusUpdate(data);
+            }}
+          >Approve
+          </Button>
+        </div>
+      );
+    }
+  };
+
   const tableHeadings = ([
     {
       title: "Name",
@@ -64,11 +107,14 @@ function TheatreList({ isAdmin }) {
       title: "Status",
       dataIndex: "isActive",
       render: (bool) => {
-        return bool ? "Active" : "Pending";
+        return bool ? "Active" : "Pending/Blocked";
       }
     }, {
       title: "Action",
       render: (text, data) => {
+        if (isAdmin) {
+          return adminActions(data);
+        }
         return (
           <div>
             <Button
