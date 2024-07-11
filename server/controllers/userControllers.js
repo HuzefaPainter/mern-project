@@ -24,7 +24,7 @@ const register = async (req, res) => {
       message: "User registered successfully"
     });
   } catch (e) {
-    console.log("Error: ", e);
+    console.log("Error in userControllers: ", e);
   }
 };
 
@@ -54,7 +54,7 @@ const login = async (req, res) => {
       data: jwtToken
     });
   } catch (e) {
-    console.log("Error: ", e);
+    console.log("Error in userControllers: ", e);
     return res.status(500).send({
       success: false,
       message: "Internal Server Error"
@@ -72,7 +72,7 @@ const getCurrentUser = async (req, res) => {
       message: "You are authorized to go to protected route",
     });
   } catch (e) {
-    console.log("Error: ", e);
+    console.log("Error in userControllers: ", e);
     return res.status(500).send({
       success: false,
       message: "Internal Server Error"

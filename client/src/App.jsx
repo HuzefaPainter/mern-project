@@ -8,6 +8,10 @@ import ProtectedRoute from 'components/ProtectedRoute';
 import store from './redux/store';
 import { Provider } from 'react-redux';
 import Admin from 'pages/admin-pages/Admin';
+import AdminProtectedRoute from 'components/AdminProtectedRoute';
+import PartnerProtectedRoute from 'components/PartnerProtectedRoute';
+import Partner from 'pages/partner-pages/Partner';
+import Profile from 'pages/user-pages/Profile';
 
 function App() {
   return (
@@ -18,7 +22,9 @@ function App() {
             <Route path='/' element={<ProtectedRoute><Home /></ProtectedRoute>} />
             <Route path='/login' element={<Login />} />
             <Route path='/register' element={<Register />} />
-            <Route path='/admin' element={<ProtectedRoute><Admin /></ProtectedRoute>} />
+            <Route path='/admin' element={<ProtectedRoute><AdminProtectedRoute><Admin /></AdminProtectedRoute></ProtectedRoute>} />
+            <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
+            <Route path='/partner' element={<ProtectedRoute><PartnerProtectedRoute><Partner /></PartnerProtectedRoute></ProtectedRoute>} />
           </Routes>
         </BrowserRouter>
       </Provider>

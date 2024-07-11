@@ -1,17 +1,26 @@
 const { axiosInstance } = require('.');
 
-export const getAllMovies = async () => {
+export const getAllTheatres = async () => {
   try {
-    const response = await axiosInstance.get("/api/movies/get-all-movies");
+    const response = await axiosInstance.get("/api/theatres/get-all-theatres");
     return response.data;
   } catch (e) {
     console.log("Error:", e);
   }
 };
 
-export const addMovie = async (value) => {
+export const getAllTheatresByOwner = async (ownerId) => {
   try {
-    const response = await axiosInstance.post("/api/movies/add-movie", value, {
+    const response = await axiosInstance.get(`/api/theatres/get-all-theatres-by-owner/${ownerId}`);
+    return response.data;
+  } catch (e) {
+    console.log("Error:", e);
+  }
+};
+
+export const addTheatre = async (value) => {
+  try {
+    const response = await axiosInstance.post("/api/theatres/add-theatre", value, {
       validateStatus: function (status) {
         return status < 500;
       }
@@ -26,9 +35,9 @@ export const addMovie = async (value) => {
   }
 };
 
-export const updateMovie = async (value) => {
+export const updateTheatre = async (value) => {
   try {
-    const response = await axiosInstance.put("/api/movies/update-movie", value, {
+    const response = await axiosInstance.put("/api/theatres/update-theatre", value, {
       validateStatus: function (status) {
         return status < 500;
       }
@@ -43,9 +52,9 @@ export const updateMovie = async (value) => {
   }
 };
 
-export const deleteMovie = async (value) => {
+export const deleteTheatre = async (theatreId) => {
   try {
-    const response = await axiosInstance.delete(`/api/movies/delete-movie/${value}`, {
+    const response = await axiosInstance.delete(`/api/theatre/delete-theatre/${theatreId}`, {
       validateStatus: function (status) {
         return status < 500;
       }

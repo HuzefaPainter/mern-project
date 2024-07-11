@@ -1,5 +1,4 @@
 const Movie = require('../models/MovieModel');
-const { ObjectId } = require('mongodb');
 
 const somethingWentWrong = new Error("Something went wrong, please try again");
 const addMovie = async (req, res) => {

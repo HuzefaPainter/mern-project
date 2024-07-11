@@ -43,6 +43,7 @@ const ProtectedRoute = ({ children }) => {
         {
           label: (<span
             onClick={() => {
+              console.log("CLICKED LOGOUT");
               localStorage.removeItem("jwtToken");
               navigate("/login");
             }}

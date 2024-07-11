@@ -1,7 +1,7 @@
 import React from 'react'
 import { Tabs } from 'antd';
 import MovieList from './MovieList';
-import TheatreTable from './TheatreTable';
+import TheatreList from '../partner-pages/TheatreList';
 
 function Admin() {
 
@@ -14,7 +14,7 @@ function Admin() {
     {
       key: "2",
       label: "Theatres",
-      children: <TheatreTable />
+      children: <TheatreList isAdmin={true} />
     }
   ]
 
