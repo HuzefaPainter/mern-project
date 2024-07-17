@@ -30,7 +30,7 @@ const movieSchema = new mongoose.Schema({
     type: String,
     required: true,
   },
-});
+}, { timestamps: true });
 
 const Movie = mongoose.model("movies", movieSchema);
 module.exports = Movie;

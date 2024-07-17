@@ -6,35 +6,16 @@ import { useDispatch, useSelector } from 'react-redux';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { getAllTheatres, getAllTheatresByOwner, updateTheatre } from '../../api/theatre';
 import DeleteTheatreModal from './DeleteTheatreModal';
+import ShowModal from './ShowModal';
 
 function TheatreList({ isAdmin }) {
 
-  const fakeTheatres = [
-    {
-      key: "1",
-      name: "PVR INOX",
-      address: "Juhu Tara Road, Juhu, Mumbai",
-      phoneNumber: "9819240550",
-      email: "pvrInoxJuhu@pvr.com",
-      owner: "668bf0e09854da2d57267c08",
-      isActive: true
-    },
-    {
-      key: "2",
-      name: "PVR IMAX",
-      address: "Jio World Plaza, BKC, Mumbai",
-      phoneNumber: "9833027997",
-      email: "pvrImaxBKC@pvr.com",
-      owner: "668fee602bbaec348ad13b10",
-      isActive: false
-    },
-  ];
-
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [theatres, setTheatres] = useState(fakeTheatres);
+  const [theatres, setTheatres] = useState([]);
   const [selectedTheatre, setSelectedTheatre] = useState(null);
   const [formType, setFormType] = useState("add");
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
+  const [isShowModalOpen, setIsShowModalOpen] = useState(false);
   const dispatch = useDispatch();
 
   const getUser = (state) => state.users && state.users.user;
@@ -132,6 +113,13 @@ function TheatreList({ isAdmin }) {
               }}
             ><DeleteOutlined />
             </Button>
+            {data.isActive === true ? <Button
+              onClick={() => {
+                setIsShowModalOpen(true);
+                setSelectedTheatre(data);
+              }}
+            >+ Show
+            </Button> : <></>}
           </div>
         );
       }
@@ -191,6 +179,15 @@ function TheatreList({ isAdmin }) {
             getData={getData}
             selectedTheatre={selectedTheatre}
             setSelectedTheatre={setSelectedTheatre}
+          />
+        )
+      }
+      {
+        isShowModalOpen && (
+          <ShowModal
+            isShowModalOpen={isShowModalOpen}
+            setIsShowModalOpen={setIsShowModalOpen}
+            selectedTheatre={selectedTheatre}
           />
         )
       }

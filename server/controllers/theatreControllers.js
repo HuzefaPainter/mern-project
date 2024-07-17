@@ -1,6 +1,8 @@
+const Show = require('../models/ShowModel');
 const Theatre = require('../models/TheatreModel');
 
 const somethingWentWrong = new Error("Something went wrong, please try again");
+
 const addTheatre = async (req, res) => {
   try {
     const newTheatre = new Theatre(req.body);
@@ -35,6 +37,35 @@ const getAllTheatres = async (req, res) => {
 const getAllTheatresByOwner = async (req, res) => {
   try {
     const allTheatres = await Theatre.find({ owner: req.params.id });
+    if (allTheatres) {
+      res.send({
+        success: true,
+        message: "All theatres fetched successfully",
+        data: allTheatres
+      });
+    } else {
+      throw (somethingWentWrong);
+    }
+  } catch (e) {
+    res.status(500).json({ success: false, message: e.message });
+  }
+};
+
+const getAllTheatresByMovie = async (req, res) => {
+  try {
+    const allShowsByMovie = await Show.find({ movie: req.params.id }).populate('theatre');
+
+    const theatreSet = new Set();
+    let allTheatres = [];
+    for (const show of allShowsByMovie) {
+      if (!theatreSet.has(show.theatre._id)) {
+        const showsInThisTheatre = allShowsByMovie.filter((showToFilter) => showToFilter.theatre._id === show.theatre._id);
+        theatreSet.add(show.theatre._id);
+        allTheatres.push({ theatre: show.theatre, shows: showsInThisTheatre });
+      }
+    }
+
+    console.log("Returning theatres", allTheatres);
     if (allTheatres) {
       res.send({
         success: true,
@@ -86,6 +117,7 @@ module.exports = {
   addTheatre,
   getAllTheatres,
   getAllTheatresByOwner,
+  getAllTheatresByMovie,
   updateTheatre,
   deleteTheatre
 };

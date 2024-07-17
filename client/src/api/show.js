@@ -1,34 +1,43 @@
 const { axiosInstance } = require('.');
 
-export const getAllTheatres = async () => {
+export const getAllShows = async () => {
   try {
-    const response = await axiosInstance.get("/api/theatres/get-all-theatres");
+    const response = await axiosInstance.get("/api/shows/get-all-shows");
     return response.data;
   } catch (e) {
     console.log("Error:", e);
   }
 };
 
-export const getAllTheatresByOwner = async (ownerId) => {
+export const getShow = async (showId) => {
   try {
-    const response = await axiosInstance.get(`/api/theatres/get-all-theatres-by-owner/${ownerId}`);
+    const response = await axiosInstance.get(`/api/shows/get-show/${showId}`);
+    return response.data;
+  } catch (e) {
+    console.log("Error:", e);
+  }
+};
+export const getAllShowsByMovie = async (movieId) => {
+  try {
+    const response = await axiosInstance.get(`/api/shows/get-all-shows-by-movie/${movieId}`);
     return response.data;
   } catch (e) {
     console.log("Error:", e);
   }
 };
 
-export const getAllTheatresByMovie = async (movieId) => {
+export const getAllShowsByTheatre = async (theatreId) => {
   try {
-    const response = await axiosInstance.get(`/api/theatres/get-all-theatres-by-movie/${movieId}`);
+    const response = await axiosInstance.get(`/api/shows/get-all-shows-by-theatre/${theatreId}`);
     return response.data;
   } catch (e) {
     console.log("Error:", e);
   }
 };
-export const addTheatre = async (value) => {
+
+export const addShow = async (value) => {
   try {
-    const response = await axiosInstance.post("/api/theatres/add-theatre", value, {
+    const response = await axiosInstance.post("/api/shows/add-show", value, {
       validateStatus: function (status) {
         return status < 500;
       }
@@ -43,9 +52,9 @@ export const addTheatre = async (value) => {
   }
 };
 
-export const updateTheatre = async (value) => {
+export const updateShow = async (value) => {
   try {
-    const response = await axiosInstance.put("/api/theatres/update-theatre", value, {
+    const response = await axiosInstance.put("/api/shows/update-show", value, {
       validateStatus: function (status) {
         return status < 500;
       }
@@ -60,9 +69,9 @@ export const updateTheatre = async (value) => {
   }
 };
 
-export const deleteTheatre = async (theatreId) => {
+export const deleteShow = async (showId) => {
   try {
-    const response = await axiosInstance.delete(`/api/theatre/delete-theatre/${theatreId}`, {
+    const response = await axiosInstance.delete(`/api/shows/delete-show/${showId}`, {
       validateStatus: function (status) {
         return status < 500;
       }
