@@ -5,7 +5,7 @@ import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
 import { useDispatch } from 'react-redux';
 import moment from 'moment';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { getAllMovies } from '../../api/movies';
+import { getAllMovies } from '../../api_services/movie_services';
 import DeleteMovieModal from './DeleteMovieModal';
 
 function MovieList() {

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
-import { getAllMovies } from '../../api/movies';
+import { getAllMovies } from '../../api_services/movie_services';
 import { SearchOutlined } from '@ant-design/icons';
 import moment from 'moment';
 
@@ -28,7 +28,7 @@ function Home() {
       dispatch(HideLoading());
       message.error(e.message);
     }
-  }, []);
+  }, [dispatch]);
 
   useEffect(() => {
     getData();

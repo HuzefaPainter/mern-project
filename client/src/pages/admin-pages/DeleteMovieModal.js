@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
-import { deleteMovie } from '../../api/movies';
+import { deleteMovie } from '../../api_services/movie_services';
 import { message, Modal } from 'antd';
 
 function DeleteMovieModal({

@@ -18,9 +18,10 @@ export const getAllTheatresByOwner = async (ownerId) => {
   }
 };
 
-export const getAllTheatresByMovie = async (movieId) => {
+export const getAllTheatresByMovie = async (payload) => {
   try {
-    const response = await axiosInstance.get(`/api/theatres/get-all-theatres-by-movie/${movieId}`);
+    console.log("In get all theatres by movie");
+    const response = await axiosInstance.post("/api/theatres/get-all-theatres-by-movie", payload);
     return response.data;
   } catch (e) {
     console.log("Error:", e);

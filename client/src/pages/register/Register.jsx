@@ -1,7 +1,7 @@
 import React from 'react'
 import { Button, Form, Input, message, Radio } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { RegisterUser } from 'api/users';
+import { RegisterUser } from 'api_services/user_services';
 
 function Register() {
 

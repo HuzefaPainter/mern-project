@@ -4,7 +4,7 @@ import TheatreForm from './TheatreForm';
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
 import { useDispatch, useSelector } from 'react-redux';
 import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
-import { getAllTheatres, getAllTheatresByOwner, updateTheatre } from '../../api/theatre';
+import { getAllTheatres, getAllTheatresByOwner, updateTheatre } from '../../api_services/theatre_services';
 import DeleteTheatreModal from './DeleteTheatreModal';
 import ShowModal from './ShowModal';
 

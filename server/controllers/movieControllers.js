@@ -15,8 +15,26 @@ const addMovie = async (req, res) => {
   }
 };
 
+const getMovieById = async (req, res) => {
+  try {
+    const movie = await Movie.findById(req.params.id);
+    if (movie) {
+      res.send({
+        success: true,
+        message: "Movie fetched successfully",
+        data: movie
+      });
+    } else {
+      throw (somethingWentWrong);
+    }
+  } catch (e) {
+    res.status(500).json({ success: false, message: e.message });
+  }
+};
+
 const getAllMovies = async (req, res) => {
   try {
+    console.log("In get all movies");
     const allMovies = await Movie.find();
     if (allMovies) {
       res.send({
@@ -28,6 +46,7 @@ const getAllMovies = async (req, res) => {
       throw (somethingWentWrong);
     }
   } catch (e) {
+    console.log("Error in get all movies");
     res.status(500).json({ success: false, message: e.message });
   }
 };
@@ -69,5 +88,6 @@ module.exports = {
   addMovie,
   getAllMovies,
   updateMovie,
-  deleteMovie
+  deleteMovie,
+  getMovieById
 };

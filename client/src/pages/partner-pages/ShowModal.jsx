@@ -2,8 +2,8 @@ import { Button, message, Modal } from 'antd';
 import React, { useCallback, useEffect, useState } from 'react'
 import { useDispatch } from 'react-redux';
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
-import { getAllMovies } from '../../api/movies';
-import { addShow, deleteShow, getAllShowsByTheatre, updateShow } from 'api/show';
+import { getAllMovies } from '../../api_services/movie_services';
+import { addShow, deleteShow, getAllShowsByTheatre, updateShow } from 'api_services/show_services';
 import moment from 'moment';
 import { DeleteOutlined, EditOutlined } from '@ant-design/icons';
 

@@ -1,5 +1,5 @@
 import { message } from 'antd';
-import { GetCurrentUser } from '../api/users';
+import { GetCurrentUser } from '../api_services/user_services';
 import React, { useCallback, useEffect } from 'react'
 import { useDispatch } from 'react-redux';
 import { useNavigate } from 'react-router-dom';

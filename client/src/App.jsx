@@ -12,6 +12,7 @@ import AdminProtectedRoute from 'components/AdminProtectedRoute';
 import PartnerProtectedRoute from 'components/PartnerProtectedRoute';
 import Partner from 'pages/partner-pages/Partner';
 import Profile from 'pages/user-pages/Profile';
+import SingleMovie from 'pages/home/SingleMovie';
 
 function App() {
   return (
@@ -25,6 +26,14 @@ function App() {
             <Route path='/admin' element={<ProtectedRoute><AdminProtectedRoute><Admin /></AdminProtectedRoute></ProtectedRoute>} />
             <Route path='/profile' element={<ProtectedRoute><Profile /></ProtectedRoute>} />
             <Route path='/partner' element={<ProtectedRoute><PartnerProtectedRoute><Partner /></PartnerProtectedRoute></ProtectedRoute>} />
+            <Route
+              path="/movies/:id"
+              element={
+                <ProtectedRoute>
+                  <SingleMovie />
+                </ProtectedRoute>
+              }
+            />
           </Routes>
         </BrowserRouter>
       </Provider>

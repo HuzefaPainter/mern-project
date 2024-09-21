@@ -2,7 +2,7 @@ import React from 'react'
 import { useDispatch } from 'react-redux'
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
 import { message, Modal } from 'antd';
-import { deleteTheatre } from '../../api/theatre';
+import { deleteTheatre } from '../../api_services/theatre_services';
 
 function DeleteTheatreModal({
   isDeleteModalOpen, setIsDeleteModalOpen, getData, selectedTheatre, setSelectedTheatre

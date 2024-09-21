@@ -1,7 +1,7 @@
 import React from 'react'
 import { useDispatch } from 'react-redux'
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
-import { addMovie, updateMovie } from 'api/movies';
+import { addMovie, updateMovie } from 'api_services/movie_services';
 import { Button, Col, Form, Input, message, Modal, Row, Select } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 import moment from 'moment';

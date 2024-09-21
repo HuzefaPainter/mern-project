@@ -53,7 +53,8 @@ const getAllTheatresByOwner = async (req, res) => {
 
 const getAllTheatresByMovie = async (req, res) => {
   try {
-    const allShowsByMovie = await Show.find({ movie: req.params.id }).populate('theatre');
+    const { movie, date } = req.body;
+    const allShowsByMovie = await Show.find({ movie, date }).populate('theatre');
 
     const theatreSet = new Set();
     let allTheatres = [];

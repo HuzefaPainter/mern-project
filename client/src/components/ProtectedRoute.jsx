@@ -5,7 +5,7 @@ import { HomeOutlined, UserOutlined, LogoutOutlined, ProfileOutlined } from '@an
 import { setUser } from '../redux/userSlice';
 import { Layout, Menu, message } from 'antd';
 import { HideLoading, ShowLoading } from '../redux/loaderSlice';
-import { GetCurrentUser } from '../api/users';
+import { GetCurrentUser } from '../api_services/user_services';
 import { Header } from 'antd/es/layout/layout';
 
 
@@ -43,8 +43,8 @@ const ProtectedRoute = ({ children }) => {
         {
           label: (<span
             onClick={() => {
-              console.log("CLICKED LOGOUT");
               localStorage.removeItem("jwtToken");
+              dispatch(setUser(null));
               navigate("/login");
             }}
           >
@@ -58,23 +58,26 @@ const ProtectedRoute = ({ children }) => {
   ]
 
   const getValidUser = useCallback(async () => {
+    const handleInvalidUser = (errorMessage) => {
+      dispatch(setUser(null));
+      localStorage.removeItem("jwtToken");
+      message.error(errorMessage);
+      navigate('/login');
+    };
     try {
       dispatch(ShowLoading());
       const response = await GetCurrentUser();
       if (!response.success) {
-        dispatch(setUser(null));
-        message.error(response.message);
-        navigate('/login');
+        handleInvalidUser(response.message)
       } else {
         dispatch(setUser(response.data));
       }
       dispatch(HideLoading());
     } catch (error) {
-      dispatch(setUser(null));
-      message.error(error.message);
-      navigate('/login');
+      handleInvalidUser(error.message)
     }
   }, [dispatch, navigate]);
+
 
   useEffect(() => {
     if (localStorage.getItem("jwtToken")) {

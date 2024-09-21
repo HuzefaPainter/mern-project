@@ -1,13 +1,16 @@
 import React, { useEffect } from 'react'
 import { Button, Form, Input, message } from 'antd';
 import { Link, useNavigate } from 'react-router-dom';
-import { LoginUser } from '../../api/users';
+import { LoginUser } from '../../api_services/user_services';
 
 function Login() {
   const navigate = useNavigate();
 
   useEffect(() => {
+    console.log("In login useeffect");
     if (localStorage.getItem("jwtToken")) {
+
+      console.log(`Found jwt token: ${localStorage.getItem("jwtToken")}`);
       navigate("/");
     }
   }, [navigate]);
