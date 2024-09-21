@@ -20,7 +20,7 @@ const SingleMovie = () => {
 
   const handleDate = (e) => {
     setDate(moment(e.target.value).format("YYYY-MM-DD"));
-    navigate(`/movie/${params.id}?data=${e.target.value}`);
+    navigate(`/movies/${params.id}?date=${e.target.value}`);
   };
 
   const getData = useCallback(async () => {
