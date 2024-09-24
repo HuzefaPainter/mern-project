@@ -1,5 +1,5 @@
 import React, { useCallback, useEffect, useState } from 'react'
-import { Table, Button, message } from 'antd';
+import { Table, Button, message, Space } from 'antd';
 import TheatreForm from './TheatreForm';
 import { HideLoading, ShowLoading } from '../../redux/loaderSlice';
 import { useDispatch, useSelector } from 'react-redux';
@@ -98,28 +98,30 @@ function TheatreList({ isAdmin }) {
         }
         return (
           <div>
-            <Button
-              onClick={() => {
-                setIsModalOpen(true);
-                setSelectedTheatre(data);
-                setFormType("edit");
-              }}
-            ><EditOutlined />
-            </Button>
-            <Button
-              onClick={() => {
-                setIsDeleteModalOpen(true);
-                setSelectedTheatre(data);
-              }}
-            ><DeleteOutlined />
-            </Button>
-            {data.isActive === true ? <Button
-              onClick={() => {
-                setIsShowModalOpen(true);
-                setSelectedTheatre(data);
-              }}
-            >+ Show
-            </Button> : <></>}
+            <Space>
+              <Button
+                onClick={() => {
+                  setIsModalOpen(true);
+                  setSelectedTheatre(data);
+                  setFormType("edit");
+                }}
+              ><EditOutlined />
+              </Button>
+              <Button
+                onClick={() => {
+                  setIsDeleteModalOpen(true);
+                  setSelectedTheatre(data);
+                }}
+              ><DeleteOutlined />
+              </Button>
+              {data.isActive === true ? <Button
+                onClick={() => {
+                  setIsShowModalOpen(true);
+                  setSelectedTheatre(data);
+                }}
+              >+ Show
+              </Button> : <></>}
+            </Space>
           </div>
         );
       }

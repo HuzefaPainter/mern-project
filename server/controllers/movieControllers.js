@@ -34,7 +34,6 @@ const getMovieById = async (req, res) => {
 
 const getAllMovies = async (req, res) => {
   try {
-    console.log("In get all movies");
     const allMovies = await Movie.find();
     if (allMovies) {
       res.send({
@@ -46,7 +45,6 @@ const getAllMovies = async (req, res) => {
       throw (somethingWentWrong);
     }
   } catch (e) {
-    console.log("Error in get all movies");
     res.status(500).json({ success: false, message: e.message });
   }
 };

@@ -78,7 +78,7 @@ function MovieList() {
       title: "Release Date",
       dataIndex: "releaseDate",
       render: (text) => {
-        return moment(text).format("MM-DD-YY");
+        return moment(text).format("DD/MM/YY");
       }
     }, {
       title: "Action",
