@@ -5,7 +5,16 @@ export const getAllTheatres = async () => {
     const response = await axiosInstance.get("/api/theatres/get-all-theatres");
     return response.data;
   } catch (e) {
-    console.log("Error:", e);
+    throw (new Error(e.message));
+  }
+};
+
+export const getTheatre = async (theatreId) => {
+  try {
+    const response = await axiosInstance.get(`/api/theatres/${theatreId}`);
+    return response.data;
+  } catch (e) {
+    throw (new Error(e.message));
   }
 };
 
@@ -14,17 +23,16 @@ export const getAllTheatresByOwner = async (ownerId) => {
     const response = await axiosInstance.get(`/api/theatres/get-all-theatres-by-owner/${ownerId}`);
     return response.data;
   } catch (e) {
-    console.log("Error:", e);
+    throw (new Error(e.message));
   }
 };
 
 export const getAllTheatresByMovie = async (payload) => {
   try {
-    console.log("In get all theatres by movie");
     const response = await axiosInstance.post("/api/theatres/get-all-theatres-by-movie", payload);
     return response.data;
   } catch (e) {
-    console.log("Error:", e);
+    throw (new Error(e.message));
   }
 };
 export const addTheatre = async (value) => {

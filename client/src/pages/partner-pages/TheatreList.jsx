@@ -7,6 +7,7 @@ import { EditOutlined, DeleteOutlined } from '@ant-design/icons';
 import { getAllTheatres, getAllTheatresByOwner, updateTheatre } from '../../api_services/theatre_services';
 import DeleteTheatreModal from './DeleteTheatreModal';
 import ShowModal from './ShowModal';
+import { useNavigate } from 'react-router-dom';
 
 function TheatreList({ isAdmin }) {
 
@@ -17,7 +18,7 @@ function TheatreList({ isAdmin }) {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
   const [isShowModalOpen, setIsShowModalOpen] = useState(false);
   const dispatch = useDispatch();
-
+  const navigate = useNavigate();
   const getUser = (state) => state.users && state.users.user;
   const user = useSelector(getUser);
   // const ownerField = {
@@ -121,6 +122,12 @@ function TheatreList({ isAdmin }) {
                 }}
               >+ Show
               </Button> : <></>}
+              <Button
+                onClick={() => {
+                  navigate(`/partner/theatre-screens/${data._id}`);
+                }}
+              > Manage Screens
+              </Button>
             </Space>
           </div>
         );

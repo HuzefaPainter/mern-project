@@ -1,26 +1,27 @@
+
 const { axiosInstance } = require('.');
 
-export const getAllMovies = async () => {
+export const getAllScreensByTheatreId = async (id) => {
   try {
-    const response = await axiosInstance.get("/api/movies/get-all-movies");
+    const response = await axiosInstance.get(`/api/screens/get-all-screens-by-theatre-id/${id}`);
     return response.data;
   } catch (e) {
     throw (new Error(e.message));
   }
 };
 
-export const getMovieById = async (id) => {
+export const getScreenById = async (id) => {
   try {
-    const response = await axiosInstance.get(`/api/movies/${id}`);
+    const response = await axiosInstance.get(`/api/screens/${id}`);
     return response.data;
   } catch (err) {
     throw (new Error(err.message));
   }
 };
 
-export const addMovie = async (value) => {
+export const addScreen = async (value) => {
   try {
-    const response = await axiosInstance.post("/api/movies/add-movie", value, {
+    const response = await axiosInstance.post("/api/screens/add-screen", value, {
       validateStatus: function (status) {
         return status < 500;
       }
@@ -35,9 +36,9 @@ export const addMovie = async (value) => {
   }
 };
 
-export const updateMovie = async (value) => {
+export const updateScreen = async (value) => {
   try {
-    const response = await axiosInstance.put("/api/movies/update-movie", value, {
+    const response = await axiosInstance.put("/api/screens/update-screen", value, {
       validateStatus: function (status) {
         return status < 500;
       }
@@ -52,9 +53,9 @@ export const updateMovie = async (value) => {
   }
 };
 
-export const deleteMovie = async (value) => {
+export const deleteScreen = async (value) => {
   try {
-    const response = await axiosInstance.delete(`/api/movies/delete-movie/${value}`, {
+    const response = await axiosInstance.delete(`/api/screens/delete-screen/${value}`, {
       validateStatus: function (status) {
         return status < 500;
       }

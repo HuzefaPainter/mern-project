@@ -34,6 +34,23 @@ const getAllTheatres = async (req, res) => {
   }
 };
 
+const getTheatre = async (req, res) => {
+  try {
+    const theatre = await Theatre.findById(req.params.id);
+    if (theatre) {
+      res.send({
+        success: true,
+        message: "Theatre fetched successfully",
+        data: theatre
+      });
+    } else {
+      throw (somethingWentWrong);
+    }
+  } catch (e) {
+    res.status(500).json({ success: false, message: e.message });
+  }
+};
+
 const getAllTheatresByOwner = async (req, res) => {
   try {
     const allTheatres = await Theatre.find({ owner: req.params.id });
@@ -117,6 +134,7 @@ const deleteTheatre = async (req, res) => {
 module.exports = {
   addTheatre,
   getAllTheatres,
+  getTheatre,
   getAllTheatresByOwner,
   getAllTheatresByMovie,
   updateTheatre,
